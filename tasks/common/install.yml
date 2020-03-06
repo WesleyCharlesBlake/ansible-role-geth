@@ -1,0 +1,21 @@
+---
+- name: Ensure Geth group exists
+  become: true
+  group:
+    name: "{{ geth_user }}"
+    state: present
+    system: true
+  tags:
+    - install
+
+- name: Create Geth user
+  become: true
+  user:
+    comment: Geth client account
+    name: "{{ geth_user }}"
+    group: "{{ geth_user }}"
+    shell: "/sbin/nologin"
+    system: true
+    create_home: false
+  tags:
+    - install

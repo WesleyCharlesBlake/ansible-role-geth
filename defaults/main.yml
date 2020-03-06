@@ -1,0 +1,22 @@
+---
+geth_user: geth
+
+install_type: package
+
+_config_template: config.toml.j2
+config_dir: /etc/geth
+
+geth_config:
+  Eth:
+    SyncMode: fast
+  Node:
+    DataDir: /var/geth
+
+_systemd_dir: /etc/systemd/system
+
+_exe_dir: /usr/bin
+extra_run_args:
+  - '--rpc'
+custom_unit_properties: {}
+
+perform_uninstall: false

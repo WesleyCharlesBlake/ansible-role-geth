@@ -1,0 +1,28 @@
+---
+- name: Setup Geth systemd unit
+  when: ansible_os_family != "Darwin"
+  include_role:
+    name: 0x0i.systemd
+  vars:
+    unit_config:
+      - name: geth
+        Unit:
+          Description: Geth - an Ethereum Go client
+          Documentation: https://geth.ethereum.org/docs/
+          Wants: network-online.target
+          After: syslog.target network-online.target
+        Service: "{{ _default_service_unit | combine(custom_unit_properties) }}"
+        Install:
+          WantedBy: multi-user.target
+  tags:
+    - launch
+
+- name: Enable and start Geth service
+  become: true
+  when: ansible_os_family != "Darwin"
+  service:
+    name: geth
+    state: started
+    enabled: true
+  tags:
+    - launch

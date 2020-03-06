@@ -1,0 +1,12 @@
+---
+- name: Default playbook for testing Geth uninstallation
+  hosts: test-kitchen
+  roles:
+    - role: ansible-role-geth
+      vars:
+        geth_user: test
+        perform_uninstall: false
+    - role: ansible-role-geth
+      vars:
+        geth_user: test
+        perform_uninstall: true
